@@ -1,0 +1,87 @@
+<com:TContent ID="CONTENU_PAGE">
+
+	<style>
+		.form-horizontal .control-label {
+			width: 200px;
+			padding-right: 10px;
+		}
+	</style>
+
+<!--Debut Breadcrumb-->
+	<ul class="breadcrumb">
+		<li><a href="<%=(Atexo_User_CurrentUser::isConnected()) ? '?page=administration.AccueilAdministrateurAuthentifie':'#'%>"><com:TTranslate>ACCUEIL</com:TTranslate>
+		</a> <span class="divider">/</span></li>
+		<li><a href="?page=administration.AdministrationAccueil"><com:TTranslate>ADMINISTRATION</com:TTranslate>
+		</a> <span class="divider">/</span>
+		</li>
+		<li class="active"><a href="?page=administration.GestionTypeEtablissements"><com:TTranslate>GESTION_TYPES_ETABLISSEMENTS</com:TTranslate>
+		</a><span class="divider">/</span>
+		</li>
+		<li class="active"><com:TTranslate>AJOUTER_TYPE_ETABLISSEMENT</com:TTranslate>
+		</li>
+	</ul>
+	<!--Fin Breadcrumb-->
+	<com:AtexoConfirmationMessage ID="confirmationMessage" />
+	<com:AtexoInfoMessage ID="infoMessage" />
+	<com:AtexoErreurMessage ID="erreurMessage" />
+	<!--Debut Bloc Organisation-->
+	<!-- Bloc Administration -->
+	<div class="bloc bloc-admin">
+	<h2><com:TTranslate>AJOUTER_TYPE_ETABLISSEMENT</com:TTranslate></h2>
+		<div class="form-horizontal moteur-recherche">
+
+			<com:TRepeater ID="listeLibelleTypeLangues">
+				<prop:ItemTemplate>
+					<div class="control-group">
+						<label class="control-label" for="<%=$this->LibelleType->ClientId%>"><com:TLabel id="LibelleTypeLibelleLang" /> : <br> <i class="optional"><com:TLabel id="lang" /></i></label>
+						<div class="controls">
+							<com:TTextBox id="LibelleType" cssclass="input-xxlarge" />
+							<com:TActiveHiddenField id="langLibelleType"/>
+							<com:TRequiredFieldValidator ValidationGroup="validateTypeEtab" ControlToValidate="LibelleType" ErrorMessage="<%=Prado::localize('CHAMP_OBLIGATOIRE')%>" Display="Dynamic" />
+						</div>
+					</div>
+				</prop:ItemTemplate>
+			</com:TRepeater>
+
+			<div class="control-group">
+				<label class="control-label" for="<%=$this->listeNiveauDecoupage->ClientId%>"><com:TTranslate>NIVEAU_DECOUPAGE</com:TTranslate> : </label>
+				<div class="controls">
+					<com:TDropDownList id="listeNiveauDecoupage" cssclass="form-control input-xxlarge"/>
+					<com:TRequiredFieldValidator ValidationGroup="validateTypeEtab" ControlToValidate="listeNiveauDecoupage" InitialValue="-1" ErrorMessage="<%=Prado::localize('CHAMP_OBLIGATOIRE')%>" Display="Dynamic" />
+				</div>
+			</div>
+
+			<com:TRepeater ID="listeLibelleEtabLangues">
+				<prop:ItemTemplate>
+					<div class="control-group">
+						<label class="control-label" for="<%=$this->LibelleEtab->ClientId%>"><com:TLabel id="LibelleEtabLibelleLang" /> : <br> <i class="optional"><com:TLabel id="lang" /></i></label>
+						<div class="controls">
+							<com:TTextBox id="LibelleEtab" cssclass="input-xxlarge" />
+							<com:TActiveHiddenField id="langLibelleEtab"/>
+							<com:TRequiredFieldValidator ValidationGroup="validateTypeEtab" ControlToValidate="LibelleEtab" ErrorMessage="<%=Prado::localize('CHAMP_OBLIGATOIRE')%>" Display="Dynamic" />
+						</div>
+					</div>
+				</prop:ItemTemplate>
+			</com:TRepeater>
+
+			<div class="control-group">
+				<label class="control-label" for="detailPrestation"><com:TTranslate>AFFICHER_DETAIL_PRESTATION</com:TTranslate> :</label>
+				<div class="controls">
+					<div class="radio inline span1">
+						<com:TRadioButton GroupName="affichageDetailPrestation" id="affichageDetailPrestationOui"  Text="<%=Prado::localize('OUI')%>"/>
+					</div>
+					<div class="radio inline">
+						<com:TRadioButton GroupName="affichageDetailPrestation" id="affichageDetailPrestationNon" Text="<%=Prado::localize('NON')%>"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-actions">
+			<div class="controls">
+				<a class="btn btn-retour" href="index.php?page=administration.GestionTypeEtablissement"><i class="icon-double-angle-left"></i><com:TTranslate>ANNULER</com:TTranslate></a>
+				<com:TLinkButton CssClass="btn btn-primary" ValidationGroup="validateTypeEtab" OnClick="enregistrer"><i class="icon-save"></i><com:TTranslate>ENREGISTER</com:TTranslate></com:TLinkButton>
+			</div>
+		</div>
+	</div>
+</com:TContent>
